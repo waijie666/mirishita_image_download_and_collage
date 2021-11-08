@@ -42,6 +42,7 @@ if __name__ == "__main__":
     parser.add_argument("--horizontalcount", type=int, default=3)
     parser.add_argument("--verticalcount", type=int, default=3)
     parser.add_argument("--collagecount", type=int, default=1)
+    parser.add_argument("--threadcount", type=int, default=32)
     parser.add_argument("--type", type=str, default="jpg", choices=["jpg","png"])
     parser.add_argument("--prefix", type=str, default="")
     args = parser.parse_args()
@@ -80,5 +81,6 @@ if __name__ == "__main__":
     input.finalheight = args.height * args.verticalcount
 
     image_name_list = [ f"{args.prefix}{i}" for i in range(current_count, args.collagecount + current_count) ]
-    with ThreadPoolExecutor(max_workers=32) as executor:
-        results = list(tqdm(executor.map(collage_create, repeat(input), image_name_list), total=len(image_name_list), desc="Creating collages"))   
+    with ThreadPoolExecutor(max_workers=args.threadcount) as executor:
+        for i in tqdm(executor.map(collage_create, repeat(input), image_name_list), total=len(image_name_list), desc="Creating collages"):
+            pass

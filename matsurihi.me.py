@@ -10,7 +10,7 @@ def get_images_link(url):
     if r.status_code == 200:
        json_data_list = r.json()
        for json_data in json_data_list:
-           if (json_data["rarity"] == 4) and (json_data["extraType"] == 0 or json_data["extraType"] == 4):
+           if (json_data["rarity"] == 4) and (json_data["extraType"] == 0 or json_data["extraType"] == 4 or json_data["extraType"] == 14):
                return_list.append(f"https://storage.matsurihi.me/mltd/card_bg/{json_data['resourceId']}_0.png")
                return_list.append(f"https://storage.matsurihi.me/mltd/card_bg/{json_data['resourceId']}_1.png")
     else:
